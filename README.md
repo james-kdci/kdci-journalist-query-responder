@@ -4,14 +4,16 @@ An AI-assisted **drafting engine** for answering journalist / HARO-style editori
 
 **It does not send anything, and it does not invent anything the brain doesn't actually know.** Every draft goes through the SME before it reaches a journalist.
 
-## Status: runnable first-run interview; drafting pipeline not yet built
+## Status: brain populated with real material; drafting pipeline not yet built
 
-`SKILL.md` is a real, installable skill (`/journalist-query-respond`) — but right now it only implements self-install and the **first-run bootstrap interview**. That's deliberate — building the drafting pipeline against an empty brain just produces generic AI thought-leadership, which defeats the point. Read `SPEC.md` §8 (Plan) for the full build sequence; short version:
+`SKILL.md` is a real, installable skill (`/journalist-query-respond`). The brain is no longer cold-start: Emman supplied real answers to all 3 launch example queries directly, and `sme-brain/` has been populated from that material — 16 real, traceable positions in `topics-position-bank.md`, evidence-backed tone/voice notes in `sme-persona.md`, and the raw source preserved in `sme-brain/writing-samples/`. Two clusters (explicit boundaries, default credibility framing) are still open but non-blocking — see `sme-persona.md`'s status line.
 
-1. **Clone this repo and run `/journalist-query-respond` (or ask Claude Code to follow `SKILL.md`).** First run detects the brain isn't bootstrapped yet and conducts the interview in `sme-brain/bootstrap-interview.md` conversationally with Emman — one cluster of questions at a time, real answers only, nothing invented. It writes the results straight into `sme-brain/sme-persona.md` (voice, tone, credibility framing) and `sme-brain/topics-position-bank.md` (his real, stated positions).
-2. Seed/confirm the company profile — `sme-brain/kdci-ai-profile.md` is already drafted from KDCI.ai's real positioning; worth a quick SME read-through for accuracy.
-3. **Not yet built:** the actual drafting pipeline (decompose → retrieve → gap-check → draft → flag) that runs once the brain has real content. `SKILL.md` explicitly stubs this rather than half-implementing it.
-4. Run it for real on actual journalist queries, and keep feeding real responses back into the brain so it gets sharper over time.
+What's still deliberately not built: the actual drafting pipeline (decompose → retrieve → gap-check → draft → flag) that runs once a real query comes in. Building that against an empty brain would've produced generic AI thought-leadership; now that the brain has real content, that's the natural next step. Read `SPEC.md` §8 (Plan) for the full build sequence; short version:
+
+1. ~~Bootstrap the brain~~ — done, via real sample material rather than a live interview (`SKILL.md` Step 1 supports either path, and will run the live interview automatically for a fresh install with no existing material).
+2. Company profile — `sme-brain/kdci-ai-profile.md` is drafted from KDCI.ai's real positioning and Emman's confirmed expertise; worth a periodic SME read-through for accuracy.
+3. **Not yet built:** the drafting pipeline itself. `SKILL.md` explicitly stubs this rather than half-implementing it.
+4. Run it for real on actual journalist queries (via HARO, Connectively, SOS, or Qwoted), and keep feeding real responses back into the brain so it gets sharper over time.
 
 ## Start here
 

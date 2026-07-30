@@ -23,21 +23,32 @@ Run this check before anything else, every invocation.
 
 Read the status line at the top of `sme-brain/sme-persona.md`.
 
-- Starts with **`Status: BOOTSTRAPPED: <date>`** → the brain has real content. Skip straight to Step 2.
-- Anything else (`NOT YET BOOTSTRAPPED`, `IDENTITY FILLED, INTERVIEW NOT YET RUN`, etc.) → **this is a first run.** Conduct the bootstrap interview now (below). Do **not** proceed to drafting a real query on an unbootstrapped brain — if the user pastes a query before the interview is done, say so plainly and offer to run the interview first.
+- Starts with **`Status: BOOTSTRAPPED: <date>`** → the brain has real content. Note any "still open" caveat on that line (e.g. specific clusters not yet covered) and treat those as light follow-ups, not blockers — then skip to Step 2.
+- Anything else (`NOT YET BOOTSTRAPPED`, `IDENTITY FILLED, INTERVIEW NOT YET RUN`, etc.) → **this is a first run.** Bootstrap now, via whichever path fits (below). Do **not** proceed to drafting a real query on an unbootstrapped brain — if the user pastes a query before bootstrap is done, say so plainly and offer to bootstrap first.
 
-### Conducting the bootstrap interview
+There are two valid ways to bootstrap — use whichever the SME actually gives you:
 
-1. Read `sme-brain/bootstrap-interview.md` in full — it has the actual question set, tailored to Emman's real specialty (production LLM/agent engineering, anti-hallucination, MLOps, computer vision, AI enablement), grouped into 4 clusters.
+### Path A — Conversational interview
+
+1. Read `sme-brain/bootstrap-interview.md` in full — it has the question set, tailored to Emman's real specialty, grouped into 4 clusters.
 2. Ask the clusters **one at a time, in normal conversation** — not as a multiple-choice tool, since these need real, unscripted answers. Present a cluster's questions together, wait for Emman's actual reply, and follow up briefly if an answer is thin ("can you give a concrete example?") before moving to the next cluster. Do not dump all 14 questions into one message — it produces rushed, shallow answers, which defeats the entire point of this file.
 3. If Emman explicitly defers or declines a question, record **"deferred"** — never invent an answer to fill the gap, including during bootstrap.
 4. Hold answers in working memory through all 4 clusters; don't write partial files mid-interview.
-5. Once all clusters are done (or explicitly deferred), write the results:
-   - **`sme-brain/sme-persona.md`** — replace the `[LOW CONFIDENCE...]` tone/voice section with Cluster C's real answers. Fill any remaining Identity gaps from Cluster D (which credibility angle leads by default). Add anything real mentioned (Slack explanations, talks, the Q1 paper) to Writing Samples.
-   - **`sme-brain/topics-position-bank.md`** — one new `## Topic:` entry per Cluster A/B question that got a real answer, in Emman's own words for Position and Reasoning, `Source: bootstrap interview, <date>`.
-   - **`sme-brain/kdci-ai-profile.md`** — update the "not KDCI's lane" list per Cluster B's boundary answers, and explicitly resolve the AI-avatar fit-question (Cluster A Q8) — either move it into expertise areas with whatever angle Emman gave, or confirm it stays excluded.
-   - Mark `sme-brain/bootstrap-interview.md`'s top line `bootstrapped: <date>` and `sme-brain/sme-persona.md`'s status line `Status: BOOTSTRAPPED: <date>`.
-6. Report back a short summary of what got written where, and confirm the brain is now ready for real queries.
+
+### Path B — Real material supplied directly (e.g. sample responses, past quotes, articles)
+
+If the SME hands over real written material instead of doing a live interview — sample answers to example queries, past press quotes, LinkedIn posts, transcripts — that's equally valid, often richer, source material. Process it the same way an interview's answers get processed:
+1. Save the raw material verbatim, unedited, under `sme-brain/writing-samples/<date>-<short-label>.md` — this is the ground truth to re-derive from later, never overwrite or summarize over it.
+2. Distill it into the same destinations as Path A: real positions with reasoning into `topics-position-bank.md` (cite the source file + date), concrete tone/voice cues actually observable in the writing into `sme-persona.md` (cite specific phrases/patterns as evidence, don't just assert a tone), and any lane/boundary implications into `kdci-ai-profile.md`.
+3. Real material like this typically only covers some clusters (usually A/C — technical stances and voice show through naturally; B/D — explicit boundaries and default credibility framing — usually don't, since nobody volunteers "topics I'd avoid" unprompted). That's fine: mark the file **partially bootstrapped**, explicitly listing which clusters are still open, rather than either blocking on the gap or silently treating it as fully resolved.
+
+### After either path — write the results
+
+- **`sme-brain/sme-persona.md`** — tone/voice notes (with evidence, not assertion), Identity gaps if Cluster D was covered, Writing Samples pointing at the source file(s).
+- **`sme-brain/topics-position-bank.md`** — one new `## Topic:` entry per real position surfaced, in the SME's own words for Position and Reasoning, with a traceable `Source`.
+- **`sme-brain/kdci-ai-profile.md`** — update "not KDCI's lane" per whatever boundaries or demonstrated fit surfaced (e.g. a topic once assumed out-of-lane may turn out to be in-lane if the SME answers it substantively — move it, cite why).
+- Update `sme-brain/sme-persona.md`'s status line to `Status: BOOTSTRAPPED: <date>`, noting which path was used and which clusters (if any) remain open.
+- Report back a short summary of what got written where, and confirm the brain is now ready for real queries (or still partially open, and on what).
 
 ## Step 2 — Drafting pipeline (not yet built)
 
@@ -55,7 +66,8 @@ This is plan step 3 in `SPEC.md` — **not implemented as an automated pipeline 
 
 - `CLAUDE.md` — what/why/rules.
 - `SPEC.md` — full design spec, pipeline detail, schemas, plan, progress log. Append a Progress Log entry after any significant run of this skill (bootstrap or drafting).
-- `sme-brain/bootstrap-interview.md` — the first-run interview script (this file drives Step 1).
-- `sme-brain/sme-persona.md` — identity, voice/tone, writing samples, calibration log.
-- `sme-brain/kdci-ai-profile.md` — company facts, positioning, expertise/not-my-lane lists.
+- `sme-brain/bootstrap-interview.md` — the first-run interview script (Path A in Step 1).
+- `sme-brain/sme-persona.md` — identity, voice/tone, writing samples pointer, calibration log.
+- `sme-brain/kdci-ai-profile.md` — company facts, positioning, expertise/not-my-lane lists, confirmed intake channels.
 - `sme-brain/topics-position-bank.md` — Emman's real, stated positions — the highest-leverage file in the system.
+- `sme-brain/writing-samples/` — raw, unedited real material (sample responses, quotes, transcripts) that `sme-persona.md` and `topics-position-bank.md` are distilled from. Never overwrite; append new dated files as more material comes in.

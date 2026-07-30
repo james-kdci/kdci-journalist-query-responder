@@ -38,15 +38,19 @@ Used by the pipeline's relevance gate (SPEC §3, Step 1) to catch queries outsid
 - Computer vision (5+ years)
 - AI enablement, team onboarding, and org-wide AI adoption
 - Applied research credibility (Q1 journal co-author, MS Data Science) — for queries wanting a research-informed take, not just a practitioner one
+- **Digital-avatar / AI-legacy-preservation architecture** — confirmed 2026-07-30 by a real, specific answer (see `topics-position-bank.md` "Technical architecture for a legacy/digital-avatar build"): knowledge base + retrieval grounding (Delphi-style), voice cloning (ElevenLabs-class), likeness capture/rendering (HeyGen-class), real-time orchestration layer. This was originally flagged as out-of-lane and has been moved here on the strength of that answer — not assumed.
 
 ## Explicitly NOT KDCI's lane (decline or heavily caveat queries that are purely this)
 
 - Foundation model research / model architecture / training commentary (he ships production systems on top of models, doesn't build the models)
 - Chip supply chain / hardware
 - Enterprise-scale AI policy or regulatory law (unless tied back to practical ops impact)
-- **Digital-human / AI avatar / digital-legacy creation** (e.g. the "Ronald Wayne AI avatar" style query) — his work is agentic backend infrastructure, not avatar/digital-human product design. Flag for explicit confirm rather than auto-decline (Cluster A Q8 in `bootstrap-interview.md`) — there may be an adjacent angle (persona-memory consistency in agentic systems) worth offering even if the avatar-creation part itself isn't his lane.
 
-> [CONFIRMED via real bio 2026-07-29 — supersedes the prior first-pass guess. Still worth a quick SME read-through once the bootstrap interview runs, in case anything here misses nuance.]
+> [CONFIRMED via real bio 2026-07-29, expertise list further confirmed via real sample-response material 2026-07-30 — see `sme-brain/writing-samples/2026-07-30-sample-query-responses.md`. Still open: Cluster B of `bootstrap-interview.md` (explicit competitors/topics to avoid) hasn't been directly asked — this list is inferred from what he chose to address, not a stated boundary.]
+
+## Intake channels (confirmed 2026-07-30)
+
+Journalist queries for this skill arrive via **HARO, Connectively, SOS, and Qwoted**. No platform API integration yet (SPEC.md still treats intake as manual paste) — but knowing the source platforms helps judge typical query format/tone and is useful context for the eventual Step 2 drafting pipeline.
 
 ## Keywords/tags
 
