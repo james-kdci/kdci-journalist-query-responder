@@ -23,7 +23,8 @@ This lives alongside the AI Link Building Prospecter Project (same parent folder
 ## Files
 
 - `SPEC.md` — the how: brain structure, pipeline, schemas, plan, open decisions, progress log. **Read it before building anything, and update its Progress Log at the end of every significant session.**
-- `sme-brain/` — the persistent knowledge base (see SPEC §2 for what goes in each file).
+- `SKILL.md` — the runnable skill (`/journalist-query-respond`). Implements self-install + the first-run bootstrap interview gate today; the full drafting pipeline is stubbed pending a bootstrapped brain (see SPEC.md plan step 3).
+- `sme-brain/` — the persistent knowledge base (see SPEC §2 for what goes in each file). Travels with the skill on install — this is stateful data, not just config.
 - `runs/` — per-query drafts and the response log (created once the pipeline runs for real).
 
 ## Relationship to the parent project

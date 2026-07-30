@@ -4,23 +4,23 @@ An AI-assisted **drafting engine** for answering journalist / HARO-style editori
 
 **It does not send anything, and it does not invent anything the brain doesn't actually know.** Every draft goes through the SME before it reaches a journalist.
 
-## Status: spec + brain, skill not yet built
+## Status: runnable first-run interview; drafting pipeline not yet built
 
-This repo is currently the **design spec and the SME's knowledge base**, not yet a runnable automation. That's deliberate — building the drafting pipeline against an empty brain just produces generic AI thought-leadership, which defeats the point. Read `SPEC.md` §8 (Plan) for the full build sequence; short version:
+`SKILL.md` is a real, installable skill (`/journalist-query-respond`) — but right now it only implements self-install and the **first-run bootstrap interview**. That's deliberate — building the drafting pipeline against an empty brain just produces generic AI thought-leadership, which defeats the point. Read `SPEC.md` §8 (Plan) for the full build sequence; short version:
 
-1. **Bootstrap the persona** (next step, not yet done) — run `sme-brain/bootstrap-interview.md` with Emman once, in conversation. Answers get written into `sme-brain/sme-persona.md` (voice, tone, credibility framing) and `sme-brain/topics-position-bank.md` (his real, stated positions on recurring topics).
+1. **Clone this repo and run `/journalist-query-respond` (or ask Claude Code to follow `SKILL.md`).** First run detects the brain isn't bootstrapped yet and conducts the interview in `sme-brain/bootstrap-interview.md` conversationally with Emman — one cluster of questions at a time, real answers only, nothing invented. It writes the results straight into `sme-brain/sme-persona.md` (voice, tone, credibility framing) and `sme-brain/topics-position-bank.md` (his real, stated positions).
 2. Seed/confirm the company profile — `sme-brain/kdci-ai-profile.md` is already drafted from KDCI.ai's real positioning; worth a quick SME read-through for accuracy.
-3. Build the actual drafting skill against the now-populated brain, test on real example queries.
-4. Package it as a self-contained, runnable skill.
-5. Run it for real, and keep feeding real responses back into the brain so it gets sharper over time.
+3. **Not yet built:** the actual drafting pipeline (decompose → retrieve → gap-check → draft → flag) that runs once the brain has real content. `SKILL.md` explicitly stubs this rather than half-implementing it.
+4. Run it for real on actual journalist queries, and keep feeding real responses back into the brain so it gets sharper over time.
 
 ## Start here
 
+- **`SKILL.md`** — the runnable skill. Install it (project- or user-level `.claude/skills/`) and it self-installs on first run, then walks straight into the bootstrap interview if the brain isn't seeded yet.
 - **`CLAUDE.md`** — what this is, why it exists, and the non-negotiable rules (no fabrication, mandatory human sign-off, never auto-send).
 - **`SPEC.md`** — the full design: how the "brain" is structured, the 10-step drafting pipeline, output schemas, and the build plan above in detail.
-- **`sme-brain/`** — the knowledge base:
-  - `bootstrap-interview.md` — **run this first.** The interview script that turns this from a cold-start template into something grounded in Emman's real opinions and voice.
-  - `sme-persona.md` — who's speaking (identity filled in; voice/tone still pending the interview).
+- **`sme-brain/`** — the knowledge base (this travels with the skill on install, not just `SKILL.md` itself):
+  - `bootstrap-interview.md` — the interview script `SKILL.md` runs on first use. Turns this from a cold-start template into something grounded in Emman's real opinions and voice.
+  - `sme-persona.md` — who's speaking (identity filled in; voice/tone/writing-samples populated by the interview).
   - `kdci-ai-profile.md` — KDCI.ai's company facts, positioning, and what is/isn't Emman's actual lane to speak on.
   - `topics-position-bank.md` — Emman's real, stated positions on recurring topics (empty until the interview runs — this file is the single highest-leverage piece of the whole system).
 
