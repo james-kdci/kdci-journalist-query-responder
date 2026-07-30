@@ -50,9 +50,48 @@ If the SME hands over real written material instead of doing a live interview �
 - Update `sme-brain/sme-persona.md`'s status line to `Status: BOOTSTRAPPED: <date>`, noting which path was used and which clusters (if any) remain open.
 - Report back a short summary of what got written where, and confirm the brain is now ready for real queries (or still partially open, and on what).
 
-## Step 2 — Drafting pipeline (not yet built)
+## Step 2 — Drafting pipeline
 
-This is plan step 3 in `SPEC.md` — **not implemented as an automated pipeline yet.** If the brain is bootstrapped and the user pastes a real journalist query, say so plainly rather than attempting a half-built pipeline silently: the knowledge base is ready, but the full decompose → retrieve → gap-check → draft → flag automation described in `SPEC.md` §3 hasn't been coded into this skill as a repeatable step yet. Offer to either (a) draft this one response by hand right now, applying `SPEC.md` §3's logic manually and reading straight from `sme-brain/`, or (b) build Step 2 out properly first so it's repeatable. Either way, the hard rules below still apply in full.
+Runs once the brain is bootstrapped (Step 1) and the user pastes a real journalist query. Implements `SPEC.md` §3 as concrete, repeatable substeps.
+
+### 2.1 — Relevance/legitimacy gate
+Check the query's topic(s) against `sme-brain/kdci-ai-profile.md`'s expertise-areas list and "not KDCI's lane" list. If it's a clean fit, proceed. If it's clearly outside both the expertise list and any demonstrated adjacent angle (see how the AI-avatar topic got reclassified — check for a real angle before assuming a decline), stop and tell the user plainly: this looks outside Emman's lane, confirm before drafting anything. Don't spend a full draft on a bad fit.
+
+### 2.2 — Decompose
+Read the query text and list its discrete sub-questions/angles explicitly, numbered, before drafting anything. A query that reads as one paragraph often has 3-6 real sub-questions bundled in it (query 2 from the launch examples had 6).
+
+### 2.3 — Retrieve
+For each numbered sub-question, search `sme-brain/topics-position-bank.md` for a matching `## Topic:` entry, `sme-brain/kdci-ai-profile.md` for relevant company facts/proof points, and `sme-brain/writing-samples/` for phrasing/voice precedent on this exact topic if it exists. Note which source(s) matched per sub-question, or "no match."
+
+### 2.4 — Gap-check
+Classify every sub-question as:
+- **GROUNDED** — a real position bank entry, proof point, or writing-sample precedent exists.
+- **UNGROUNDED** — nothing in the brain addresses it.
+
+This classification must be shown in the output (Step 2.6), not just used silently — it's the core audit trail against fabrication.
+
+### 2.5 — Draft
+Write the response, sub-question by sub-question:
+- **Grounded** → draft from the matched `topics-position-bank.md` entry's Position + Reasoning, adapted into natural flowing prose (not pasted verbatim as bullet points) and matched to the tone/voice cues in `sme-persona.md` (balanced framing, closes with a clean reduction, sparing first-person conviction, names companies/tools directly, metrics over vague enthusiasm, jargon translated to plain English). Do not add any claim, number, or example beyond what the position-bank entry actually says.
+- **Ungrounded** → insert `[SME INPUT NEEDED: <one-line description of what's missing>]` inline where that sub-answer would go. Never fill it with an invented stat, anecdote, or opinion — this is the single most important rule in this entire skill.
+- Match the query's requested format/length if stated (word count, quote-only vs. full commentary); if unstated, default to a length proportional to how many sub-questions were asked.
+
+### 2.6 — Output
+Write two files under `runs/<YYYY-MM-DD>/<query-slug>/`:
+- `query.md` — the original inbound query, verbatim, plus which platform it came from if known (HARO/Connectively/SOS/Qwoted).
+- `draft.md` — the drafted response, followed by a **Flags** section listing every `[SME INPUT NEEDED]` placeholder plus a one-line **Grounding summary** (`N of M sub-questions grounded`).
+
+### 2.7 — Human gate (mandatory, no exceptions)
+Present the draft to the user in-chat. State plainly: this is a draft only — Emman must personally review, edit, and send it himself through whichever platform the query came from. Do not represent it as final or ready-to-send.
+
+### 2.8 — Feedback capture (after Emman actually sends something)
+Once Emman has sent his real, edited final version (not this draft), fold it back in:
+- Any sub-question where his final differs meaningfully from the draft → note it in `sme-brain/sme-persona.md`'s calibration log (draft vs. final, what changed, pattern).
+- Any genuinely new position that emerged in his edit → new `## Topic:` entry in `topics-position-bank.md`, `Source: response to <query slug>, <date>`.
+This step only fires on a real sent response — never on an unreviewed draft.
+
+### 2.9 — Log
+Append a row to `runs/response_log.csv` (create with header if missing): `date_received,outlet_or_reporter,topic_tags,sub_questions_count,grounded_count,ungrounded_flagged_count,draft_status,published_url,notes`. Set `draft_status=drafted` at this point; the human updates it to `sme_edited`/`sent`/`published`/`declined` later.
 
 ## Hard rules (from `CLAUDE.md` — never violate)
 

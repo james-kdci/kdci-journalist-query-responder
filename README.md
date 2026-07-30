@@ -4,16 +4,19 @@ An AI-assisted **drafting engine** for answering journalist / HARO-style editori
 
 **It does not send anything, and it does not invent anything the brain doesn't actually know.** Every draft goes through the SME before it reaches a journalist.
 
-## Status: brain populated with real material; drafting pipeline not yet built
+## Status: pipeline built and mechanics-tested; not yet proven on a real, unseen query
 
-`SKILL.md` is a real, installable skill (`/journalist-query-respond`). The brain is no longer cold-start: Emman supplied real answers to all 3 launch example queries directly, and `sme-brain/` has been populated from that material — 16 real, traceable positions in `topics-position-bank.md`, evidence-backed tone/voice notes in `sme-persona.md`, and the raw source preserved in `sme-brain/writing-samples/`. Two clusters (explicit boundaries, default credibility framing) are still open but non-blocking — see `sme-persona.md`'s status line.
+`SKILL.md` is a real, installable skill (`/journalist-query-respond`) with both halves working: the brain is populated with real material (16 traceable positions in `topics-position-bank.md`, evidence-backed voice notes in `sme-persona.md`, raw source in `sme-brain/writing-samples/`), and Step 2 (the drafting pipeline — relevance gate → decompose → retrieve → gap-check → draft → output → human gate → feedback capture → log) is fully written and test-run against all 3 launch example queries — see `runs/2026-07-30/`.
 
-What's still deliberately not built: the actual drafting pipeline (decompose → retrieve → gap-check → draft → flag) that runs once a real query comes in. Building that against an empty brain would've produced generic AI thought-leadership; now that the brain has real content, that's the natural next step. Read `SPEC.md` §8 (Plan) for the full build sequence; short version:
+**Read this caveat before trusting the test results:** those 3 queries are exactly what the brain was built from, so the test proves the pipeline's mechanics (no fabrication, correct sub-question grounding, proper output format) — it does **not** prove the pipeline generalizes to a genuinely new query the brain hasn't seen. Every test draft says so explicitly. Two persona clusters (explicit boundaries, default credibility framing) also remain open non-blocking — see `sme-persona.md`'s status line.
 
-1. ~~Bootstrap the brain~~ — done, via real sample material rather than a live interview (`SKILL.md` Step 1 supports either path, and will run the live interview automatically for a fresh install with no existing material).
+Read `SPEC.md` §8 (Plan) and its Progress Log for full detail; short version of where things stand:
+
+1. ~~Bootstrap the brain~~ — done, via real sample material (`SKILL.md` Step 1 supports either a live interview or real material supplied directly).
 2. Company profile — `sme-brain/kdci-ai-profile.md` is drafted from KDCI.ai's real positioning and Emman's confirmed expertise; worth a periodic SME read-through for accuracy.
-3. **Not yet built:** the drafting pipeline itself. `SKILL.md` explicitly stubs this rather than half-implementing it.
-4. Run it for real on actual journalist queries (via HARO, Connectively, SOS, or Qwoted), and keep feeding real responses back into the brain so it gets sharper over time.
+3. ~~Build the drafting pipeline~~ — done and mechanics-tested (`SKILL.md` Step 2, `runs/2026-07-30/`).
+4. **Next real test:** run it on a genuine, unseen journalist query (via HARO, Connectively, SOS, or Qwoted) to see how it performs when the brain doesn't already contain the answer.
+5. Run it for real, and keep feeding real, sent responses back into the brain so it gets sharper over time (Step 2.8).
 
 ## Start here
 

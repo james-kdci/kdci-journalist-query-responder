@@ -1,0 +1,4 @@
+date_received,outlet_or_reporter,topic_tags,sub_questions_count,grounded_count,ungrounded_flagged_count,draft_status,published_url,notes
+2026-07-30,unknown (test),microsoft;openai;google;meta;ai-competition,5,5,0,drafted,,Test run against brain-source query — verifies mechanics not generalization
+2026-07-30,unknown (test),ai-agents;automation;cost;deployment-lessons,6,6,0,drafted,,Test run against brain-source query — verifies mechanics not generalization
+2026-07-30,unknown (test),ai-avatar;digital-legacy;digital-human,4,4,0,drafted,,Test run against brain-source query — required relevance-gate override (see draft.md); verifies mechanics not generalization
